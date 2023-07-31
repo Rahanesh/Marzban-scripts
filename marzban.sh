@@ -118,7 +118,7 @@ install_docker() {
 }
 
 install_marzban_script() {
-    FETCH_REPO="Gozargah/Marzban-scripts"
+    FETCH_REPO="rahanesh/Marzban-scripts"
     SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/marzban.sh"
     colorized_echo blue "Installing marzban script"
     curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/marzban
@@ -127,7 +127,7 @@ install_marzban_script() {
 
 install_marzban() {
     # Fetch releases
-    FILES_URL_PREFIX="https://raw.githubusercontent.com/Gozargah/Marzban/master"
+    FILES_URL_PREFIX="https://raw.githubusercontent.com/rahanesh/Marzban-scripts/master"
     
     mkdir -p "$DATA_DIR"
     mkdir -p "$APP_DIR"
@@ -141,7 +141,7 @@ install_marzban() {
     sed -i 's/^# \(XRAY_JSON = .*\)$/\1/' "$APP_DIR/.env"
     sed -i 's/^# \(SQLALCHEMY_DATABASE_URL = .*\)$/\1/' "$APP_DIR/.env"
     sed -i 's~\(XRAY_JSON = \).*~\1"/var/lib/marzban/xray_config.json"~' "$APP_DIR/.env"
-    sed -i 's~\(SQLALCHEMY_DATABASE_URL = \).*~\1"sqlite:////var/lib/marzban/db.sqlite3"~' "$APP_DIR/.env"
+    sed -i 's~\(SQLALCHEMY_DATABASE_URL = \).*~\1"mysql+pymysql://root:Abc*12345@127.0.0.1/marzban"~' "$APP_DIR/.env"
     colorized_echo green "File saved in $APP_DIR/.env"
     
     colorized_echo blue "Fetching xray config file"
@@ -208,7 +208,7 @@ marzban_cli() {
 
 
 update_marzban_script() {
-    FETCH_REPO="Gozargah/Marzban-scripts"
+    FETCH_REPO="rahanesh/Marzban-scripts"
     SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/marzban.sh"
     colorized_echo blue "Updating marzban script"
     curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/marzban
